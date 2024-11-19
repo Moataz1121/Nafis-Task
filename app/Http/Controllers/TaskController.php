@@ -19,10 +19,19 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $task = Task::all();
+        $status = $request->query('status');
+        $dueDate = $request->query('due_date');
+        $query = Task::query();
+        if($status){
+            $query->where('status', $status);
+        }
+        if($dueDate){
+            $query->whereDate('due_date', $dueDate);
+        }
+        $task = $query->get();
         return ApiResponse::sendResponse(200, 'Success', TaskResource::collection($task));
     }
 
