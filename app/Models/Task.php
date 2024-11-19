@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use Laravel\Sanctum\HasApiTokens;
 
-class Task extends Model
+class Task extends Model 
 {
     //
     use HasFactory , HasApiTokens;

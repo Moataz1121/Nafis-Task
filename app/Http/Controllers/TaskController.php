@@ -9,7 +9,9 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use App\Models\User;
+use App\Notifications\TaskNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class TaskController extends Controller
 {
@@ -34,15 +36,34 @@ class TaskController extends Controller
         return ApiResponse::sendResponse(200, 'Success', TaskResource::make($task));
     }
 
+    public function show(Task $task){
+        return ApiResponse::sendResponse(200, 'Success', TaskResource::make($task));
+    }
     /**
      * Display the specified resource.
      */
     public function assignUsers(AssginRequest $request, Task $task)
     {
         //
+        // $validated = $request->validated();
+        // $task->users()->sync($validated['user_ids']);
+        // return response()->json(['message' => 'Users assigned successfully', 'task' => $task->load('users')]);
+        if (!$task) {
+            return response()->json(['message' => 'Task not found'], 404);
+        }
+    
         $validated = $request->validated();
+    
         $task->users()->sync($validated['user_ids']);
-        return response()->json(['message' => 'Users assigned successfully', 'task' => $task->load('users')]);
+    
+        $users = $task->users;
+    
+        Notification::send($users, new TaskNotification($task));
+    
+        return response()->json([
+            'message' => 'Users assigned successfully',
+            'task' => $task->load('users')
+        ]);
         }
 
     /**
