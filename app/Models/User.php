@@ -23,6 +23,16 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+   
+    public function tasks()
+{
+    return $this->belongsToMany(Task::class, 'task_user');
+}
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
 
     /**
      * The attributes that should be hidden for serialization.
