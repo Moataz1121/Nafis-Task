@@ -6,6 +6,7 @@ use App\Helpers\ApiResponse;
 use App\Http\Requests\AssginRequest;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Http\Resources\AssginResource;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use App\Models\User;
@@ -44,10 +45,7 @@ class TaskController extends Controller
      */
     public function assignUsers(AssginRequest $request, Task $task)
     {
-        //
-        // $validated = $request->validated();
-        // $task->users()->sync($validated['user_ids']);
-        // return response()->json(['message' => 'Users assigned successfully', 'task' => $task->load('users')]);
+      
         if (!$task) {
             return response()->json(['message' => 'Task not found'], 404);
         }
@@ -62,7 +60,7 @@ class TaskController extends Controller
     
         return response()->json([
             'message' => 'Users assigned successfully',
-            'task' => $task->load('users')
+            'task' => new AssginResource($task->load('users'))
         ]);
         }
 
@@ -83,8 +81,11 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         //
+        if (!$task) {
+            return response()->json(['message' => 'Task not found'], 404);
+        }
         $task->delete();
-        return ApiResponse::sendResponse(200, 'Success', TaskResource::make($task));
+        return ApiResponse::sendResponse(200, 'Deleted Success', TaskResource::make($task));
     }
     
     public function getTasksByUser(User $user)
