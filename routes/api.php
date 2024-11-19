@@ -43,4 +43,6 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 
 
-    Route::apiResource('tasks' , TaskController::class);
+Route::apiResource('tasks' , TaskController::class);
+Route::post('assgin/{task}', [TaskController::class, 'assignUsers']);
+Route::get('task/{user}', [TaskController::class, 'getTasksByUser']);
