@@ -15,30 +15,32 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store (Request $request) {
-        $validator = Validator::make($request->all(), ([
-            'email' => 'required|string|email|max:255',
-            'password' => 'required|string|min:6',
-    
-        ]), [
-            'email.required' => 'Email is required',
-            'password.required' => 'Password is required',
-        ]);
-        if ($validator->fails()) {
-            return ApiResponse::sendResponse(200, 'Failed', $validator->messages()->all());
-        }
-    
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = Auth::user();
-            $data['token'] = $user->createToken('auth_token')->plainTextToken;
-            $data['name'] = $user->name;
-            $data['email'] = $user->email;
-            $data['id'] = $user->id;
-            return ApiResponse::sendResponse(200, 'Success Login', $data);
-        } else {
-            return ApiResponse::sendResponse(401, 'user credentials not match', null);
-        }
+    public function store(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'email' => 'required|string|email|max:255',
+        'password' => 'required|string|min:6',
+    ], [
+        'email.required' => 'Email is required',
+        'password.required' => 'Password is required',
+    ]);
+
+    if ($validator->fails()) {
+        return ApiResponse::sendResponse(200, 'Failed', $validator->messages()->all());
     }
+
+    if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        $user = Auth::user();
+        $data['token'] = $user->createToken('auth_token')->plainTextToken;
+        $data['name'] = $user->name;
+        $data['email'] = $user->email;
+        $data['id'] = $user->id;
+        return ApiResponse::sendResponse(204, 'Success Login', $data);
+    } else {
+        return ApiResponse::sendResponse(401, 'User credentials not match', null);
+    }
+}
+
 
     /**
      * Destroy an authenticated session.

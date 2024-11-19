@@ -26,24 +26,23 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', Rules\Password::defaults()],
         ]);
-
+    
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => bcrypt($request->password), 
         ]);
         $token = $user->createToken('auth_token')->plainTextToken;
-
-
+    
         event(new Registered($user));
-
+    
         Auth::login($user);
-
+    
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
             'user' => $user,
-        ], 201);
-    
+        ], 204);
     }
+    
 }
