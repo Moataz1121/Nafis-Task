@@ -67,3 +67,8 @@ php artisan key:generate
 php artisan migrate --seed
 
 
+---
+## Postman documentation
+https://www.postman.com/altimetry-administrator-75156638/60f0ec57-391e-4996-9ff3-9d1ed61cd36d/request/zdyviwj/register
+ 
+
