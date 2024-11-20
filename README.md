@@ -57,3 +57,13 @@ MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS="hello@example.com"
 MAIL_FROM_NAME="${APP_NAME}"
+
+--- 
+## Generate Application Key
+php artisan key:generate
+
+--- 
+## Set Admin 
+php artisan migrate --seed
+
+
