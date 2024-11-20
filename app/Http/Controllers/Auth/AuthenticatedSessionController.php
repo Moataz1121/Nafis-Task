@@ -35,7 +35,7 @@ class AuthenticatedSessionController extends Controller
         $data['name'] = $user->name;
         $data['email'] = $user->email;
         $data['id'] = $user->id;
-        return ApiResponse::sendResponse(204, 'Success Login', $data);
+        return ApiResponse::sendResponse(200, 'Success Login', $data);
     } else {
         return ApiResponse::sendResponse(401, 'User credentials not match', null);
     }

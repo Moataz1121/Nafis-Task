@@ -38,7 +38,7 @@ class TaskReminderNotification extends Notification
     {
         return (new MailMessage)
         ->line("Reminder: The task '{$this->task->title}' is due in 24 hours.")
-        ->action('View Task', url('/tasks/'.$this->task->id))
+        ->action('View Task', url('/api/tasks/'.$this->task->id))
         ->line('Please make sure to complete it on time.');
     }
 

@@ -10,7 +10,10 @@ class SendTaskReminder
 {
     public function __invoke()
     {
-        $tasks = Task::where('due_date', '=', now()->addDay()->toDateTimeString())->with('users')->get();
+        $tasks = Task::where('due_date', '<=', now()->addDay())
+            ->where('due_date', '>', now())
+            ->with('users')
+            ->get();
 
         foreach ($tasks as $task) {
             Notification::send($task->users, new TaskReminderNotification($task));
