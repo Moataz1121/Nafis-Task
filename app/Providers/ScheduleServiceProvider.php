@@ -22,6 +22,8 @@ class ScheduleServiceProvider extends ServiceProvider
     {
         //
         $schedule->call(\App\Tasks\SendTaskReminder::class)->dailyAt('00:00');
+        $schedule->call(\App\Tasks\MarkOverdueTasks::class)->dailyAt('00:00');
+
 
     }
 }
