@@ -71,4 +71,54 @@ php artisan migrate --seed
 ## Postman documentation
 https://www.postman.com/altimetry-administrator-75156638/60f0ec57-391e-4996-9ff3-9d1ed61cd36d/request/zdyviwj/register
  
+---
+##
+Task-Manager-API/
+├── app/
+│   ├── Helpers/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Auth/
+│   │   │   │   ├── AuthenticatedSessionController.php
+│   │   │   │   ├── EmailVerificationNotificationController.php
+│   │   │   │   ├── NewPasswordController.php
+│   │   │   │   ├── PasswordResetLinkController.php
+│   │   │   │   ├── RegisteredUserController.php
+│   │   │   │   └── VerifyEmailController.php
+│   │   │   ├── Controller.php
+│   │   │   ├── TaskController.php
+│   │   │   └── UserController.php
+│   │   ├── Middleware/
+│   │   │   ├── AdminMiddleware.php
+│   │   │   └── EnsureEmailVerified.php
+│   │   ├── Requests/
+│   │   │   ├── Auth/
+│   │   │   │   └── LoginRequest.php
+│   │   │   ├── AssignRequest.php
+│   │   │   ├── StoreTaskRequest.php
+│   │   │   └── UpdateTaskRequest.php
+│   │   ├── Resources/
+│   │   │   ├── AssignResource.php
+│   │   │   ├── TaskResource.php
+│   │   │   └── UserResource.php
+│   ├── Models/
+│   │   ├── Task.php
+│   │   └── User.php
+│   ├── Notifications/
+│   │   ├── TaskNotification.php
+│   │   └── TaskReminderNotification.php
+├── bootstrap/
+├── config/
+├── database/
+├── public/
+├── resources/
+├── routes/
+│   ├── api.php
+│   ├── auth.php
+│   └── web.php
+├── storage/
+├── tests/
+├── .env
+├── composer.json
+└── README.md
 
