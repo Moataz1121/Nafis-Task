@@ -37,7 +37,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
     
         Auth::login($user);
-    
+    // for test
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',

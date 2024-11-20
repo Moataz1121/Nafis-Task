@@ -105,6 +105,6 @@ class TaskController extends Controller
     public function getTasksByUser(User $user)
     {
         $tasks = $user->tasks;
-        return ApiResponse::sendResponse(200, 'Success', $tasks);
+        return ApiResponse::sendResponse(200, 'Success', TaskResource::collection($tasks));
     }
 }
